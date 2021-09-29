@@ -15,6 +15,15 @@ export default function ListingItemModel({ item }) {
     currency = '€';
   }
 
+  let itemQuantity = 'item-quantity';
+  if (quantity <= 10) {
+    itemQuantity += ' level-low';
+  } else if (quantity <= 20) {
+    itemQuantity += ' level-medium';
+  } else if (quantity > 20) {
+    itemQuantity += ' level-high';
+  }
+
   return (
     <div className="item">
       <div className="item-image">
@@ -34,7 +43,7 @@ export default function ListingItemModel({ item }) {
             {price}&nbsp;{currency_code}
           </p>
         )}
-        <p className="item-quantity">{quantity} left</p>
+        <p className={itemQuantity}>{quantity} left</p>
       </div>
     </div>
   );
