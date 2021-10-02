@@ -1,28 +1,14 @@
-export default function ListingItemModel({ item }) {
-  if (item.state === 'removed') {
-    return null;
-  }
+import { currencyCodeToSymbol, itemQuantityLevel } from '../utils';
 
+export default function ListingItem({ item }) {
   const { url, MainImage, title, currency_code, price, quantity } = item;
 
   let titlePreview;
   title.length > 50 ? (titlePreview = title.substring(0, 50) + '…') : (titlePreview = title);
 
-  let currency = null;
-  if (currency_code === 'USD') {
-    currency = '$';
-  } else if (currency_code === 'EUR') {
-    currency = '€';
-  }
+  const currency = currencyCodeToSymbol(currency_code);
 
-  let itemQuantity = 'item-quantity';
-  if (quantity <= 10) {
-    itemQuantity += ' level-low';
-  } else if (quantity <= 20) {
-    itemQuantity += ' level-medium';
-  } else if (quantity > 20) {
-    itemQuantity += ' level-high';
-  }
+  const itemQuantity = itemQuantityLevel(quantity);
 
   return (
     <div className="item">
